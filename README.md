@@ -5,7 +5,7 @@ Optimised particle system, written in C#, rendered with OpenGL and open sourced 
 
 This repository contains C# code for creating and destroying particles, sending particle data to the GPU and rendering particles with OpenGL.
 
-The explanation of this particle system can be found in  [this blog post](https://vercidium.com/blog/optimised-particles/).
+The explanation of this particle system can be found in  [this blog post](https://vercidium.com/blog/particle-optimisations/).
 
 This particle system uses the voxel ray-marching algorithm found in [this repository](https://github.com/Vercidium/voxel-ray-marching).
 
