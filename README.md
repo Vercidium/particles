@@ -12,7 +12,7 @@ This particle system uses the voxel ray-marching algorithm found in [this reposi
 The system is thread safe and can also buffer data to the GPU across multiple threads.
 
 ## Benchmarks
-This system is capable of updating, buffering and rendering 33,000 particles on a Ryzen 5 1600 CPU and GTX960 GPU, which equates to ~484 nanoseconds per particle.
+This system is capable of updating, buffering and rendering 33,000 particles on a Ryzen 5 1600 CPU and GTX960 GPU before dropping below 60FPS, which equates to ~484 nanoseconds per particle.
 
 ## In Practice
 Particles in Sector's Edge are small cubes that are created from explosions, block destruction, projectile trails, player damage, rain and other causes. See the particle system in action in our [latest video here]](https://www.youtube.com/watch?v=Dklpzrg1Zko).
