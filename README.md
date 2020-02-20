@@ -13,7 +13,7 @@ The system is thread safe and can also buffer data to the GPU across multiple th
 
 ## Dependencies
 
-This system uses [OpenGL.Net](https://github.com/luca-piccioni/OpenGL.Net) bindings for C# and can be installed through NuGet.
+This system uses [OpenGL.Net](https://github.com/luca-piccioni/OpenGL.Net) bindings for C#, which can be installed through NuGet.
 
 ## Benchmarks
 This system is capable of updating, buffering and rendering 33,000 particles on a Ryzen 5 1600 CPU and GTX960 GPU before dropping below 60FPS, which equates to ~484 nanoseconds per particle.
