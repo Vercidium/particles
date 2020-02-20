@@ -15,6 +15,4 @@ The system is thread safe and can also buffer data to the GPU across multiple th
 This system is capable of updating, buffering and rendering 33,000 particles on a Ryzen 5 1600 CPU and GTX960 GPU, which equates to ~484 nanoseconds per particle.
 
 ## In Practice
-Particles in Sector's Edge are small cubes that are created from explosions, block destruction, projectile trails, player damage, rain and other causes. See the particle system in action in our latest video here:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Dklpzrg1Zko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Particles in Sector's Edge are small cubes that are created from explosions, block destruction, projectile trails, player damage, rain and other causes. See the particle system in action in our [latest video here]](https://www.youtube.com/watch?v=Dklpzrg1Zko).
