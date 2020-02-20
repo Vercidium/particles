@@ -1,2 +1,20 @@
-# particles
+# Particles
 Optimised particle system, written in C#, rendered with OpenGL and open sourced from the Vercidium Engine.
+
+## Overview
+
+This repository contains C# code for creating and destroying particles, sending particle data to the GPU and rendering particles with OpenGL.
+
+The explanation of this particle system can be found in  [this blog post](https://vercidium.com/blog/optimised-particles/).
+
+This particle system uses the voxel ray-marching algorithm found in [this repository](https://github.com/Vercidium/voxel-ray-marching).
+
+The system is thread safe and can also buffer data to the GPU across multiple threads.
+
+## Benchmarks
+This system is capable of updating, buffering and rendering 33,000 particles on a Ryzen 5 1600 CPU and GTX960 GPU, which equates to ~484 nanoseconds per particle.
+
+## In Practice
+Particles in Sector's Edge are small cubes that are created from explosions, block destruction, projectile trails, player damage, rain and other causes. See the particle system in action in our latest video here:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Dklpzrg1Zko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
