@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Particles
 {
-    public static class rand
+    public static class Rand
     {
         static int seed = Environment.TickCount;
 

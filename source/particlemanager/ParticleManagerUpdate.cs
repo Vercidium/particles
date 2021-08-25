@@ -117,23 +117,24 @@ namespace Particles
                 }
 
 
+                // Example particle update - move and rotate
+                var elapsedVelocity = q.velocity * elapsed;
 
-                // ----------------------------------
-                // Insert particle updating code here
-                //----------------------------------
+                q.position += elapsedVelocity;
+                q.rotation += elapsedVelocity * 0.25f;
 
 
                 // Copy this particle's colour to shared memory
                 cPtr[bufferOffset] = q.colour;
 
                 
-                // Precalculate
+                // Precalculate for faster matrix calculation
                 float sX = (float)Math.Sin(q.rotation.X);
                 float cX = (float)Math.Cos(q.rotation.X);
                 float sZ = (float)Math.Sin(q.rotation.Z);
                 float cZ = (float)Math.Cos(q.rotation.Z);
 
-                float a = q.scale * q.scaleModifier;
+                float a = q.scale;
                 float acZ = a * cZ;
                 float acX = a * cX;
                 float asX = a * sX;
@@ -160,7 +161,5 @@ namespace Particles
                 mat.M33 = q.position.Z;
             }
         }
-
-
     }
 }

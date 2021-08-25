@@ -4,12 +4,15 @@
     {
         static void Main(string[] args)
         {
+            // Initialise the particle engine
             var PM = new ParticleManager();
 
+
+            // Add some particles
             PM.ExampleBatchAdd();
 
 
-            // Game loop
+            // Mock game loop
             while (true)
             {
                 PM.PreRenderUpdate();

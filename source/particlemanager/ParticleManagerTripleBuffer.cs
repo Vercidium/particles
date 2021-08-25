@@ -7,6 +7,7 @@
         public int CurrentTripleBufferIndex;
         public bool CanRenderParticles = false;
 
+
         public void IncrementTripleBufferIndex()
         {
             CurrentTripleBufferIndex++;
@@ -36,6 +37,8 @@
             return r;
         }
 
+
+        // Shortcuts
         public int ParticleRenderIndex => TripleBufferOffset(0);
         public int ParticleUpdateIndex => TripleBufferOffset(2);
     }

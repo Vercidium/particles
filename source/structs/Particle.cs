@@ -14,7 +14,7 @@ namespace Particles
 
         
         // Shortcuts
-        public float scale => Math.Min(1, lifetime / 1000.0f);
+        public float scale => Math.Min(1, lifetime / 1000.0f) * scaleModifier;
         
 
         // In-place reset constructor

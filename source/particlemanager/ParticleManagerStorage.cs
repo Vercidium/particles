@@ -13,7 +13,7 @@ namespace Particles
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CheckParticleSize<T>(ref T[] currentArray, int currentCount, int batchSize)
         {
-            // If there isn't enough room
+            // If there isn't enough room in this array
             if (currentCount + batchSize >= currentArray.Length)
             {
                 // Increase the array by at least double, rather than lots of small increases
