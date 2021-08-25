@@ -1,5 +1,5 @@
 # Particles
-Highly optimised particle system, written in C#, rendered with OpenGL and open sourced from the Vercidium Engine.
+Highly optimised particle system, written in C#, rendered with OpenGL and open sourced from the [Vercidium Engine](https://vercidium.com/blog).
 
 ## Overview
 
@@ -16,4 +16,4 @@ The explanation of this particle system can be found in [this blog post](https:/
 This repository uses mock OpenGL bindings. [OpenGL.Net](https://github.com/luca-piccioni/OpenGL.Net) can be installed through NuGet as an alternative.
 
 ## In Practice
-Particles in Sector's Edge are small cubes that are created from explosions, block destruction, projectile trails, player damage, rain and snow. See the particle system in action on our [Steam page](https://sectorsedge.com/s/izl4).
+This particle system is used in Sector's Edge to render block destruction particles projectile trails, rain and snow. See the particle system in action on the [Sector's Edge Steam page](https://sectorsedge.com/s/izl4).
