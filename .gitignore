@@ -1,3 +1,5 @@
 packages
 source/bin
 source/obj
+.vs/
+source/.vs/

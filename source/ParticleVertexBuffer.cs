@@ -1,84 +1,131 @@
-﻿using OpenGL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace Particles
 {
-
     public class ParticleVertexBuffer : IDisposable
     {
         public ParticleVertexBuffer()
         {
-            data = new ParticleVertex[36];
+            data = new ParticleVertex[ModelHelper.CUBE_STRIP_LENGTH];
 
-            // Generate VAO and VBO
-            arrayHandle = Gl.GenVertexArray();
-            bufferHandle = Gl.GenBuffer();
+            // Create VAO
+            vaoHandle = Gl.GenVertexArray();
+            Gl.BindVertexArray(vaoHandle);
 
-            // Bind VAO and VBO
-            Gl.BindVertexArray(arrayHandle);
-            Gl.BindBuffer(BufferTarget.ArrayBuffer, bufferHandle);
 
-            // 4 bytes per ParticleVertex
-            vertexSize = 4;
+            // Create VBO
+            vboHandle = Gl.GenBuffer();
+            Gl.BindBuffer(BufferTarget.ArrayBuffer, vboHandle);
+
+
+            // Set vertex attribute info
+            VERTEX_SIZE = 4;
 
             Gl.EnableVertexAttribArray(0);
-            Gl.VertexAttribPointer(0, 4, VertexAttribType.Byte, false, vertexSize, IntPtr.Zero);
+            Gl.VertexAttribPointer(0, 4, VertexAttribType.Byte, false, VERTEX_SIZE, IntPtr.Zero);
 
-            // Divisor must be set as we are using instance buffers
+
+            // Must set the divisor so the instance buffer can be attached
             Gl.VertexAttribDivisor(0, 0);
 
-            // Unbind VAO and VBO
-            Gl.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            Gl.BindVertexArray(0);
+
+            // Clean up
+            UnbindVAO();
+            UnbindVBO();
         }
-        
+
+
         public ParticleVertex[] data;
+        int VERTEX_SIZE;
+        int used;
+        int vboSize;
+        bool dirty;
 
-        public uint arrayHandle;  // VAO
-        public uint bufferHandle; // VBO
 
-        protected int vertexSize;
-        public int used;
+        // We expose the VAO handle so we can attach an InstanceBuffer to it
+        public uint vaoHandle;
+        uint vboHandle;
 
-        public void BufferData()
+
+        // Data functions
+        public void Append(ParticleVertex v)
         {
-            Gl.BindBuffer(BufferTarget.ArrayBuffer, bufferHandle);
+            if (used >= data.Length)
+                throw new Exception("The particle buffer is full");
 
-            unsafe
+            data[used++] = v;
+            dirty = true;
+        }
+
+        public unsafe void BufferData()
+        {
+            if (!dirty)
+                return;
+
+
+            BindVBO();
+
+
+            // We must use 'fixed' to get a pointer to memory managed by C#
+            fixed (ParticleVertex* p = data)
             {
-                fixed (ParticleVertex* p = data)
+                if (vboSize < used)
                 {
-                    Gl.BufferData(BufferTarget.ArrayBuffer, (uint)(used * vertexSize), (IntPtr)p, BufferUsage.StaticDraw);
+                    // Buffer with StaticDraw since we're only setting this once
+                    Gl.BufferData(BufferTarget.ArrayBuffer, BytesUsed, (IntPtr)p, BufferUsage.StaticDraw);
+
+
+                    // Remember how much data we've allocated on the GPU for this buffer
+                    vboSize = used;
+                }
+                else
+                {
+                    Gl.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, BytesUsed, (IntPtr)p);
                 }
             }
 
-            // No need to store data here anymore as it has been buffered
-            data = null;
 
-            Gl.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            UnbindVBO();
+
+
+            // Clear after successfully buffering the data
+            dirty = false;
+            data = null;
         }
 
+
+
+        // Shortcut functions
+        protected uint BytesUsed => (uint)(used * VERTEX_SIZE);
+        protected void BindVAO() => Gl.BindVertexArray(vaoHandle);
+        protected void UnbindVAO() => Gl.BindVertexArray(0);
+        protected void BindVBO() => Gl.BindBuffer(BufferTarget.ArrayBuffer, vboHandle);
+        protected void UnbindVBO() => Gl.BindBuffer(BufferTarget.ArrayBuffer, 0);
+
+
+
+        // Disposal functions
         public void Dispose()
         {
-            if (bufferHandle != 0)
+            if (vboHandle != 0)
             {
-                Gl.DeleteBuffers(bufferHandle);
-                Gl.DeleteVertexArrays(arrayHandle);
-                bufferHandle = 0;
-                arrayHandle = 0;
+                Gl.DeleteBuffers(vboHandle);
+                vboHandle = 0;
+            }
+
+            if (vaoHandle != 0)
+            {
+                Gl.DeleteVertexArrays(vaoHandle);
+                vaoHandle = 0;
             }
         }
-
         ~ParticleVertexBuffer()
         {
-            if (bufferHandle != 0)
-            {
-                throw new InvalidOperationException("ParticleVertexBuffer not disposed");
-            }
+            if (vboHandle != 0)
+                throw new InvalidOperationException($"VBO not disposed: {vboHandle} | {vaoHandle}");
+
+            if (vaoHandle != 0)
+                throw new InvalidOperationException($"VAO not disposed: {vboHandle} | {vaoHandle}");
         }
-    }   
+    }
 }

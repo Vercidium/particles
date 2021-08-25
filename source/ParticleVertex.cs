@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
 namespace Particles
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ParticleVertex
     {
-        public ParticleVertex(in Vector3 position, byte normal)
+        public ParticleVertex(in Vector3F position, byte normal)
         {
             PositionX = (byte)position.X;
             PositionY = (byte)position.Y;

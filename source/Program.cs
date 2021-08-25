@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Particles
+﻿namespace Particles
 {
     class Program
     {
         static void Main(string[] args)
         {
-            ParticleManager pm = new ParticleManager();
+            var PM = new ParticleManager();
+
+            PM.ExampleBatchAdd();
+
+
+            // Game loop
+            while (true)
+            {
+                PM.PreRenderUpdate();
+                PM.RenderParticles();
+                PM.UpdateParticles(16.0f);
+            }
         }
     }
 }
