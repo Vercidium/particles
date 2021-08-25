@@ -1,9 +1,13 @@
 # Particles
-Optimised particle system, written in C#, rendered with OpenGL and open sourced from the Vercidium Engine.
+Highly optimised particle system, written in C#, rendered with OpenGL and open sourced from the Vercidium Engine.
 
 ## Overview
 
-This repository updates 3D particles and writes to shared GPU memory across multiple threads.
+Some features of this particle system are:
+- Fast batch particle creation
+- Efficient memory management when creating, removing and updating particles
+- Custom Matrix3x4 format for fast particle matrix operations on the GPU
+- Writing to shared GPU memory across multiple threads
 
 The explanation of this particle system can be found in [this blog post](https://vercidium.com/blog/opengl-particle-systems/).
 
