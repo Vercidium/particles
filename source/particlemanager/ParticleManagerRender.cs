@@ -16,7 +16,17 @@ namespace Particles
         {
             if (ParticleTasks.Count > 0)
             {
+                // Wait for any threads that may be running
                 Task.WaitAll(ParticleTasks.ToArray());
+
+
+                // Unmap previously mapped buffers
+                var updateIndex = ParticleUpdateIndex;
+                ParticleColourBuffer[updateIndex].UnmapBuffer();
+                ParticleMatrixBuffer[updateIndex].UnmapBuffer();
+
+
+                // Advance to the next triple buffer slice
                 IncrementTripleBufferIndex();
             }
         }
