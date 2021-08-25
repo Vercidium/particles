@@ -1,22 +1,19 @@
 # Particles
-Optimised particle system, written in C#, rendered with OpenGL and open sourced from the Vercidium Engine.
+Highly optimised particle system, written in C#, rendered with OpenGL and open sourced from the [Vercidium Engine](https://vercidium.com/blog).
 
 ## Overview
 
-This repository contains C# code for creating and destroying particles, sending particle data to the GPU and rendering particles with OpenGL.
+Some features of this particle system are:
+- Fast batch particle creation
+- Efficient memory management when creating, removing and updating particles
+- Custom Matrix3x4 format for fast matrix operations on the GPU
+- Writing to shared GPU memory across multiple threads
 
-The explanation of this particle system can be found in  [this blog post](https://vercidium.com/blog/particle-optimisations/).
-
-This particle system uses the voxel ray-marching algorithm found in [this repository](https://github.com/Vercidium/voxel-ray-marching).
-
-The system is thread safe and can also buffer data to the GPU across multiple threads.
+The explanation of this particle system can be found in [this blog post](https://vercidium.com/blog/opengl-particle-systems/).
 
 ## Dependencies
 
-This system uses [OpenGL.Net](https://github.com/luca-piccioni/OpenGL.Net) bindings for C#, which can be installed through NuGet.
-
-## Benchmarks
-This system is capable of updating, buffering and rendering 33,000 particles on a Ryzen 5 1600 CPU and GTX960 GPU before dropping below 60FPS, which equates to ~484 nanoseconds per particle.
+This repository uses mock OpenGL bindings. [OpenGL.Net](https://github.com/luca-piccioni/OpenGL.Net) can be installed through NuGet as an alternative.
 
 ## In Practice
-Particles in Sector's Edge are small cubes that are created from explosions, block destruction, projectile trails, player damage, rain and other causes. See the particle system in action in our [latest video here]](https://www.youtube.com/watch?v=Dklpzrg1Zko).
+This particle system is used in Sector's Edge to render debris, projectile trails, rain and snow. See the particle system in action on the [Sector's Edge Steam page](https://sectorsedge.com/s/izl4).
